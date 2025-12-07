@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import { routes } from "./routes.js";
+import "./socket.js";
 
 const app = express();
 
@@ -13,6 +15,8 @@ app.use(
     ],
   })
 );
+
+routes(app);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
