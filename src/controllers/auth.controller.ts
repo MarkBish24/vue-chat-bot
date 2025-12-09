@@ -47,3 +47,22 @@ export const Login = async (req, res) => {
 export const GetUser = async (req, res) => {
   res.send(req["user"]);
 };
+
+export const UpdateUser = async (req, res) => {
+  const user: User = req["user"];
+
+  user.first_name = req.body.first_name;
+  user.last_name = req.body.last_name;
+  user.email = req.body.email;
+
+  if (req.body.password) {
+    if (req.body.password !== req.body.password_confirm) {
+      return res.status(400).send({
+        message: "Password's do not match",
+      });
+    }
+  }
+  await user.save();
+
+  res.send(user);
+};
